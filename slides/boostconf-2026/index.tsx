@@ -42,7 +42,7 @@ const PAD = 140;
 
 // ─── Шрифт Montserrat: локальные woff2, регистрируем один раз на слайд ───────
 const fontUrl = (name: string) => new URL(`./assets/fonts/${name}.woff2`, import.meta.url).href;
-const FONT_STYLE_ID = 'osd-webfont-aaa-ai-2026';
+const FONT_STYLE_ID = 'osd-webfont-boostconf-2026';
 const fontFace = (weight: number, subset: string, range: string) => `
 @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: ${weight}; font-display: swap;
   src: url('${fontUrl(`montserrat-${weight}-${subset}`)}') format('woff2'); unicode-range: ${range}; }`;
