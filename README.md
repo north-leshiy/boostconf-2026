@@ -65,4 +65,4 @@ Supported fields: `slidesDir`, `port`.
 
 ## Деплой
 
-Пуш в `main` запускает GitHub Actions (`.github/workflows/deploy.yml`): сборка с `BASE_PATH=/<repo>/`, затем публикация `dist/` на GitHub Pages. Адрес: https://north-leshiy.github.io/aaa-ai-2026/
+Пуш в `main` запускает GitHub Actions (`.github/workflows/deploy.yml`): сборка с `BASE_PATH=/<repo>/`, затем публикация `dist/` на GitHub Pages. Адрес: https://north-leshiy.github.io/boostconf-2026/
