@@ -49,7 +49,7 @@ const dark = '#05100E'; // панели и текст на светлых зал
 const mono = '"JetBrains Mono", "SF Mono", Menlo, Consolas, monospace';
 
 const PAD = 140;
-const TOPIC = '3 вектора развития AI SDLC';
+const TOPIC = 'Внедрение SDD в команды и производство на старых проектах';
 const GREEN_PANEL = 'linear-gradient(20deg, #0a764c 0%, #07492f 55%, #062a1e 100%)';
 
 // ─── Переходы: один почерк на всю колоду ─────────────────────────────────────
@@ -1090,11 +1090,13 @@ const Cover: Page = () => (
     <img className="rs-in" src={boostLogoBig} alt="AI BOOST'26" style={{ position: 'absolute', left: 80, top: 80, width: 692 }} />
     <img className="rs-in" src={partnersGreen} alt="Partners' Club" style={{ position: 'absolute', right: 80, top: 126, height: 68 }} />
     <PanelBg x={20} y={398} w={1216} h={662} green />
-    <div className="rs-in rs-d1" style={{ position: 'absolute', left: 87, top: 470, width: 1080 }}>
-      <Heading size={104}>
-        3 вектора развития
+    <div className="rs-in rs-d1" style={{ position: 'absolute', left: 87, top: 470, width: 1110 }}>
+      <Heading size={70}>
+        Внедрение SDD в команды
         <br />
-        AI SDLC
+        и производство
+        <br />
+        на старых проектах
       </Heading>
       <div style={{ fontSize: 38, lineHeight: 1.4, color: 'rgba(255,255,255,0.8)', marginTop: 40 }}>Harness · Трансформация ролей · Автономность</div>
     </div>
@@ -3393,7 +3395,7 @@ const VectorTakeaways: Page = () => (
 );
 
 export const meta: SlideMeta = {
-  title: '3 вектора развития AI SDLC',
+  title: 'Внедрение SDD в команды и производство на старых проектах',
   createdAt: '2026-09-25T17:30:00.000Z',
 };
 
