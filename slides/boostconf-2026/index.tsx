@@ -18,50 +18,39 @@ import qrChannelImg from './assets/qr-techlead-stream.png';
 import meatProxyImg from './assets/meat-proxy.png';
 import meatProxyVideo from './assets/meat-proxy-reaction.mp4';
 
+// Тема AI BOOST'26 (themes/ai-boost-26.md)
+import bgImg from '@assets/boost26/bg.jpg';
+import boostBadge from '@assets/boost26/boost-badge.svg';
+import partnersGreen from '@assets/boost26/partners-club-green.png';
+import partnersWhite from '@assets/boost26/partners-club-white.png';
+import boostLogoBig from '@assets/boost26/boost26-logo-sm.svg';
+import boostLogo from '@assets/boost26/boost-logo.svg';
+
 // ─── Дизайн-токены (правятся из панели Design) ───────────────────────────────
 export const design: DesignSystem = {
-  palette: { bg: '#fafafe', text: '#15111f', accent: '#6f00ff' },
+  palette: { bg: '#05100E', text: '#ffffff', accent: '#04AB6A' },
   fonts: {
-    display: '"Montserrat", "Helvetica Neue", Arial, system-ui, sans-serif',
-    body: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, system-ui, sans-serif',
+    display: 'Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif',
+    body: 'Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif',
   },
   typeScale: { hero: 140, body: 40 },
-  radius: 20,
+  radius: 22,
 };
 
 // ─── Локальные константы ─────────────────────────────────────────────────────
-const muted = '#6b6580';
-const line = 'rgba(21,17,31,0.12)';
-const surface = '#ffffff';
-const tint = '#f1eafb';
-const accentSoft = '#b285e0';
-const ink = '#1b1730';
+const muted = '#8F9794';
+const line = 'rgba(255,255,255,0.14)';
+const surface = '#0C1D18';
+const tint = '#0E2C22';
+const accentSoft = '#3E9B76';
+const accentFill = '#0A8354'; // сплошные заливки под белый текст
+const ink = '#E8ECEA'; // линии и подписи схем
+const dark = '#05100E'; // панели и текст на светлых заливках
 const mono = '"JetBrains Mono", "SF Mono", Menlo, Consolas, monospace';
 
 const PAD = 140;
-
-// ─── Шрифт Montserrat: локальные woff2, регистрируем один раз на слайд ───────
-const fontUrl = (name: string) => new URL(`./assets/fonts/${name}.woff2`, import.meta.url).href;
-const FONT_STYLE_ID = 'osd-webfont-boostconf-2026';
-const fontFace = (weight: number, subset: string, range: string) => `
-@font-face { font-family: 'Montserrat'; font-style: normal; font-weight: ${weight}; font-display: swap;
-  src: url('${fontUrl(`montserrat-${weight}-${subset}`)}') format('woff2'); unicode-range: ${range}; }`;
-const RANGES: Record<string, string> = {
-  'cyrillic-ext': 'U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F',
-  cyrillic: 'U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116',
-  'latin-ext':
-    'U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF',
-  latin:
-    'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD',
-};
-if (typeof document !== 'undefined' && !document.getElementById(FONT_STYLE_ID)) {
-  const style = document.createElement('style');
-  style.id = FONT_STYLE_ID;
-  style.textContent = [700, 800]
-    .flatMap((w) => Object.entries(RANGES).map(([subset, range]) => fontFace(w, subset, range)))
-    .join('\n');
-  document.head.appendChild(style);
-}
+const TOPIC = '3 вектора развития AI SDLC';
+const GREEN_PANEL = 'linear-gradient(20deg, #0a764c 0%, #07492f 55%, #062a1e 100%)';
 
 // ─── Переходы: один почерк на всю колоду ─────────────────────────────────────
 const EASE_OUT = 'cubic-bezier(0, 0, 0.2, 1)';
@@ -125,8 +114,8 @@ const MOTION_CSS = `
 @keyframes rs-lay { from { opacity: 0; transform: scaleX(0.35); } to { opacity: 1; transform: scaleX(1); } }
 @keyframes rs-fillbar { from { width: 0; } to { width: 50%; } }
 @keyframes rs-pulse {
-  0% { box-shadow: 0 12px 28px -10px rgba(111,0,255,0.7), 0 0 0 0 rgba(111,0,255,0.45); }
-  100% { box-shadow: 0 12px 28px -10px rgba(111,0,255,0.7), 0 0 0 22px rgba(111,0,255,0); }
+  0% { box-shadow: 0 12px 28px -10px rgba(4,171,106,0.7), 0 0 0 0 rgba(4,171,106,0.45); }
+  100% { box-shadow: 0 12px 28px -10px rgba(4,171,106,0.7), 0 0 0 22px rgba(4,171,106,0); }
 }
 ${nth}
 .rs-d1 { --rs-d: 120ms; } .rs-d2 { --rs-d: 240ms; } .rs-d3 { --rs-d: 360ms; } .rs-d4 { --rs-d: 480ms; }
@@ -162,19 +151,67 @@ svg .rs-stagger > *, svg .rs-in { transform-box: fill-box; transform-origin: lef
 const fill: CSSProperties = {
   width: '100%',
   height: '100%',
-  background: 'var(--osd-bg)',
+  background: `#063524 url(${bgImg}) center / cover no-repeat`,
   color: 'var(--osd-text)',
   fontFamily: 'var(--osd-font-body)',
   position: 'relative',
   overflow: 'hidden',
-  letterSpacing: '-0.005em',
+  isolation: 'isolate',
 };
 
-// Корень страницы: fill + флаг «живой» страницы для CSS-анимаций.
-const Live = ({ style, className, children }: { style?: CSSProperties; className?: string; children: ReactNode }) => {
+// ─── Каркас темы: тёмные панели r=35 на зелёном градиенте, зазор 20 ─────────
+const HEADER_H = 185;
+const BODY_TOP = 20 + HEADER_H + 20;
+
+const PanelBg = ({ x, y, w, h, green }: { x: number; y: number; w: number; h: number; green?: boolean }) => (
+  <div
+    className="rs-static"
+    style={{
+      position: 'absolute',
+      left: x,
+      top: y,
+      width: w,
+      height: h,
+      borderRadius: 35,
+      background: green ? GREEN_PANEL : dark,
+      zIndex: -1,
+    }}
+  />
+);
+
+// Бейджи AI BOOST + Partners' Club — обязательны на контентных слайдах.
+const Logos = ({ top = 78 }: { top?: number }) => (
+  <div className="rs-static" style={{ position: 'absolute', right: 80, top, display: 'flex', gap: 15, zIndex: 2 }}>
+    <img src={boostBadge} alt="AI BOOST" style={{ height: 68, display: 'block' }} />
+    <img src={partnersGreen} alt="Partners' Club" style={{ height: 68, display: 'block' }} />
+  </div>
+);
+
+// Корень страницы: фон темы + панели + флаг «живой» страницы для CSS-анимаций.
+// chrome: 'panel' — одна панель на весь слайд; 'frame' — шапка + тело; 'bare' — страница рисует сама.
+type Chrome = 'panel' | 'frame' | 'bare';
+const Live = ({
+  style,
+  className,
+  children,
+  chrome = 'panel',
+}: {
+  style?: CSSProperties;
+  className?: string;
+  children: ReactNode;
+  chrome?: Chrome;
+}) => {
   const live = useIsActivePage();
   return (
     <div data-live={live ? '1' : '0'} className={className} style={{ ...fill, ...style }}>
+      {chrome === 'panel' && <PanelBg x={20} y={20} w={1880} h={1040} />}
+      {chrome === 'frame' && (
+        <>
+          <PanelBg x={20} y={20} w={1880} h={HEADER_H} />
+          <PanelBg x={20} y={BODY_TOP} w={1880} h={1080 - BODY_TOP - 20} />
+        </>
+      )}
+      {chrome !== 'bare' && <Logos />}
       {children}
       <style>{MOTION_CSS}</style>
     </div>
@@ -190,40 +227,53 @@ const Footer = () => {
       style={{
         position: 'absolute',
         left: PAD,
-        right: PAD,
-        bottom: 52,
+        right: 90,
+        bottom: 54,
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'baseline',
         fontSize: 22,
-        color: muted,
-        letterSpacing: '0.03em',
+        textTransform: 'uppercase',
       }}
     >
-      <span />
-      <span>
-        {String(current).padStart(2, '0')} / {String(total).padStart(2, '0')}
+      <span style={{ color: muted, letterSpacing: '0.04em' }}>{TOPIC}</span>
+      <span style={{ fontSize: 24 }}>
+        {current} <span style={{ color: 'var(--osd-accent)' }}>/ {total}</span>
       </span>
     </div>
   );
 };
 
+// Плашка-надзаголовок, как в шаблоне: зелёный бейдж капсом.
 const Eyebrow = ({ children, style }: { children: ReactNode; style?: CSSProperties }) => (
   <div
-    style={{ fontSize: '66px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--osd-accent)', ...style }}
+    style={{
+      display: 'inline-block',
+      padding: '10px 24px',
+      borderRadius: 18,
+      background: accentFill,
+      color: '#fff',
+      fontSize: 30,
+      fontWeight: 700,
+      lineHeight: 1.2,
+      letterSpacing: '0.04em',
+      textTransform: 'uppercase',
+      ...style,
+    }}
   >
     {children}
   </div>
 );
 
-const Heading = ({ children, size = 72 }: { children: ReactNode; size?: number }) => (
+const Heading = ({ children, size = 72, caps = true }: { children: ReactNode; size?: number; caps?: boolean }) => (
   <h2
     style={{
       fontFamily: 'var(--osd-font-display)',
       fontSize: size,
-      fontWeight: 800,
-      lineHeight: 1.12,
-      letterSpacing: '-0.025em',
+      fontWeight: 700,
+      lineHeight: caps ? 1.05 : 1.15,
+      letterSpacing: 0,
+      textTransform: caps ? 'uppercase' : 'none',
       margin: 0,
     }}
   >
@@ -232,12 +282,22 @@ const Heading = ({ children, size = 72 }: { children: ReactNode; size?: number }
 );
 
 const Lead = ({ children, size = 34 }: { children: ReactNode; size?: number }) => (
-  <p style={{ fontSize: size, lineHeight: 1.45, color: muted, margin: '28px 0 0', maxWidth: 1500 }}>{children}</p>
+  <p style={{ fontSize: size, lineHeight: 1.4, color: muted, margin: 0, maxWidth: 1640 }}>{children}</p>
 );
 
 const A = ({ children }: { children: ReactNode }) => <span style={{ color: 'var(--osd-accent)' }}>{children}</span>;
 
-// Стандартная контентная страница: заголовок, тело, футер.
+// Заголовок в шапке-панели (слева от бейджей).
+const HeaderTitle = ({ children, size = 60 }: { children: ReactNode; size?: number }) => (
+  <div
+    className="rs-in"
+    style={{ position: 'absolute', left: 87, top: 20, width: 1880 - 67 - 640, height: HEADER_H, display: 'flex', alignItems: 'center' }}
+  >
+    <Heading size={size}>{children}</Heading>
+  </div>
+);
+
+// Стандартная контентная страница: шапка с заголовком, тело, футер.
 const Frame = ({
   title,
   lead,
@@ -251,32 +311,48 @@ const Frame = ({
   gap?: number;
   titleSize?: number;
 }) => (
-  <Live style={{ padding: `120px ${PAD}px 0` }}>
-    <div className="rs-in">
-      <Heading size={titleSize}>{title}</Heading>
-      {lead && <Lead>{lead}</Lead>}
-    </div>
-    <div style={{ marginTop: gap }}>{children}</div>
+  <Live chrome="frame" style={{ padding: `${BODY_TOP + 54}px ${PAD}px 0` }}>
+    <HeaderTitle size={titleSize}>{title}</HeaderTitle>
+    {lead && (
+      <div className="rs-in">
+        <Lead>{lead}</Lead>
+      </div>
+    )}
+    <div style={{ marginTop: lead ? Math.max(24, gap - 16) : 0 }}>{children}</div>
     <Footer />
   </Live>
 );
 
-// Буллет с фиолетовым маркером.
+// Буллет с зелёным маркером.
 const Bullet = ({ children, size = 40, mark }: { children: ReactNode; size?: number; mark?: ReactNode }) => (
-  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 28, fontSize: size, lineHeight: 1.5 }}>
+  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 28, fontSize: size, lineHeight: 1.4 }}>
     <span
       style={{
         flex: 'none',
         width: 16,
         height: 16,
-        borderRadius: 4,
+        borderRadius: '50%',
         background: 'var(--osd-accent)',
-        marginTop: size * 0.75 - 8,
+        marginTop: size * 0.7 - 8,
         display: mark ? 'none' : 'block',
       }}
     />
     {mark && (
-      <span style={{ flex: 'none', width: 52, fontWeight: 800, color: 'var(--osd-accent)', fontFamily: 'var(--osd-font-display)' }}>
+      <span
+        style={{
+          flex: 'none',
+          width: 56,
+          height: 56,
+          borderRadius: '50%',
+          background: accentFill,
+          color: '#fff',
+          fontSize: 34,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: size * 0.7 - 28,
+        }}
+      >
         {mark}
       </span>
     )}
@@ -288,40 +364,23 @@ const BulletList = ({ children, gap = 26 }: { children: ReactNode; gap?: number 
   <div style={{ display: 'flex', flexDirection: 'column', gap }}>{children}</div>
 );
 
-// Разделитель главы.
+// Разделитель главы: зелёная «геройская» панель.
 const Divider = ({ n, title, sub }: { n: string; title: ReactNode; sub?: ReactNode }) => (
-  <Live style={{ background: tint, padding: `0 ${PAD}px`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-    <div
-      style={{
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        bottom: 0,
-        width: 14,
-        background: 'var(--osd-accent)',
-      }}
-    />
+  <Live chrome="bare" style={{ padding: `0 ${PAD}px`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+    <PanelBg x={20} y={20} w={1880} h={1040} green />
+    <img className="rs-static" src={boostLogo} alt="AI BOOST" style={{ position: 'absolute', left: 80, top: 60, height: 92 }} />
+    <img className="rs-static" src={partnersWhite} alt="Partners' Club" style={{ position: 'absolute', right: 80, top: 72, height: 68 }} />
     <div
       className="rs-in"
-      style={{
-        fontFamily: 'var(--osd-font-display)',
-        fontSize: 200,
-        fontWeight: 800,
-        lineHeight: 0.9,
-        letterSpacing: '-0.04em',
-        background: 'linear-gradient(135deg, #6f00ff, #b285e0)',
-        WebkitBackgroundClip: 'text',
-        backgroundClip: 'text',
-        color: 'transparent',
-      }}
+      style={{ fontFamily: 'var(--osd-font-display)', fontSize: 220, fontWeight: 700, lineHeight: 0.9, color: 'rgba(255,255,255,0.32)' }}
     >
       {n}
     </div>
     <div className="rs-in rs-d1" style={{ marginTop: 40 }}>
-      <Heading size={96}>{title}</Heading>
+      <Heading size={110}>{title}</Heading>
     </div>
     {sub && (
-      <div className="rs-in rs-d2" style={{ fontSize: 36, lineHeight: 1.4, color: muted, marginTop: 36, maxWidth: 1300 }}>
+      <div className="rs-in rs-d2" style={{ fontSize: 38, lineHeight: 1.4, color: 'rgba(255,255,255,0.78)', marginTop: 36, maxWidth: 1300 }}>
         {sub}
       </div>
     )}
@@ -342,7 +401,9 @@ const Shout = ({ children, size = 88, eyebrow }: { children: ReactNode; size?: n
       </div>
     )}
     <div className="rs-in rs-d1" style={{ borderLeft: '10px solid var(--osd-accent)', paddingLeft: 56 }}>
-      <Heading size={size}>{children}</Heading>
+      <Heading size={size} caps={false}>
+        {children}
+      </Heading>
     </div>
     <Footer />
   </Live>
@@ -369,15 +430,15 @@ const Card = ({
       flex,
       minWidth: 0,
       position: 'relative',
-      background: accent ? 'var(--osd-accent)' : surface,
+      background: accent ? accentFill : surface,
       color: accent ? '#fff' : 'var(--osd-text)',
       border: `1px solid ${accent ? 'transparent' : line}`,
       borderRadius: 'var(--osd-radius)',
-      padding: '40px 44px',
+      padding: '32px 40px',
       display: 'flex',
       flexDirection: 'column',
       gap: 18,
-      boxShadow: accent ? '0 24px 48px -24px rgba(111,0,255,0.55)' : 'none',
+      boxShadow: accent ? '0 24px 48px -24px rgba(0,0,0,0.5)' : 'none',
     }}
   >
     {badge && (
@@ -386,8 +447,8 @@ const Card = ({
           position: 'absolute',
           top: -20,
           right: 32,
-          background: ink,
-          color: '#fff',
+          background: '#fff',
+          color: dark,
           fontSize: 20,
           fontWeight: 700,
           letterSpacing: '0.1em',
@@ -432,42 +493,19 @@ const Caption = ({ children, top = 40 }: { children: ReactNode; top?: number }) 
 );
 
 
-const Speaker = ({ size = 120, light }: { size?: number; light?: boolean }) => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
-    <img
-      src={speakerImg}
-      alt="Иван Поддубный"
-      style={{
-        width: size,
-        height: size,
-        borderRadius: '50%',
-        objectFit: 'cover',
-        objectPosition: '50% 18%',
-        border: `4px solid ${accentSoft}`,
-        flex: 'none',
-      }}
-    />
-    <div>
-      <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 36, fontWeight: 700, lineHeight: 1.2 }}>Иван Поддубный</div>
-      <div style={{ fontSize: 26, color: light ? 'rgba(255,255,255,0.8)' : muted, marginTop: 6 }}>CTO Вебпрактик</div>
-    </div>
-  </div>
-);
-
-
 // ═══════════════════════════════════════════════════════════════════════════════
 // ПЕРЕНЕСЕНО ИЗ КОЛОДЫ production-transformation (хендофы, SDLC, модель ролей)
 // ═══════════════════════════════════════════════════════════════════════════════
-const feColor = '#f6d37a'; // фронтенд — работа
-const beColor = '#f2a3a3'; // бекенд — работа
-const ctxColor = '#b7c9f2'; // погружение в бизнес-логику
+const feColor = '#0A8354'; // фронтенд — работа
+const beColor = '#5FD3A2'; // бекенд — работа
+const ctxColor = '#7E8A86'; // погружение в бизнес-логику
 const blockerColor = '#ffffff';
 
 
 
 const LegendItem = ({ color, label, stroke }: { color: string; label: string; stroke?: boolean }) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 14, fontSize: 26, color: muted, whiteSpace: 'nowrap' }}>
-    <span style={{ width: 36, height: 26, background: color, border: `${stroke ? 2 : 1}px solid ${ink}`, display: 'inline-block' }} />
+    <span style={{ width: 36, height: 26, background: color, border: `${stroke ? 2 : 1}px solid ${stroke ? ink : 'transparent'}`, display: 'inline-block' }} />
     {label}
   </div>
 );
@@ -483,9 +521,9 @@ const segFill: Record<SegKind, string> = { fe: feColor, be: beColor, ctx: ctxCol
 
 const Seg = ({ x, w, y, kind, label }: { x: number; w: number; y: number; kind: SegKind; label?: string }) => (
   <g>
-    <rect x={x} y={y} width={w} height={ROW_H} fill={segFill[kind]} stroke={ink} strokeWidth={kind === 'blk' ? 2.5 : 1} />
+    <rect x={x} y={y} width={w} height={ROW_H} fill={segFill[kind]} stroke={dark} strokeWidth={2} />
     {label && (
-      <text x={x + w / 2} y={y + ROW_H / 2 + 9} textAnchor="middle" fontSize={26} fill={ink}>
+      <text x={x + w / 2} y={y + ROW_H / 2 + 9} textAnchor="middle" fontSize={26} fill={kind === 'fe' ? '#fff' : dark}>
         {label}
       </text>
     )}
@@ -654,7 +692,7 @@ const ArrowDefs = () => (
       <path d="M0,0 L12,6 L0,12 z" fill={ink} />
     </marker>
     <marker id="rs26-arrow-accent" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L12,6 L0,12 z" fill="#6f00ff" />
+      <path d="M0,0 L12,6 L0,12 z" fill="#04AB6A" />
     </marker>
   </defs>
 );
@@ -663,7 +701,7 @@ const Arrow = ({ d, accent, both }: { d: string; accent?: boolean; both?: boolea
   <path
     d={d}
     fill="none"
-    stroke={accent ? '#6f00ff' : ink}
+    stroke={accent ? '#04AB6A' : ink}
     strokeWidth={2.5}
     markerEnd={accent ? 'url(#rs26-arrow-accent)' : 'url(#rs26-arrow)'}
     markerStart={both ? (accent ? 'url(#rs26-arrow-accent)' : 'url(#rs26-arrow)') : undefined}
@@ -723,7 +761,7 @@ const Badge = ({ x, y, text, soft }: { x: number; y: number; text: string; soft?
 const PanelTitle = ({ y, tag, title, inverted }: { y: number; tag: string; title: string; inverted?: boolean }) => (
   <g>
     <rect x={0} y={y} width={130} height={48} rx={6} fill={inverted ? ink : surface} stroke={ink} strokeWidth={2} />
-    <text x={65} y={y + 32} textAnchor="middle" fontSize={24} fontWeight={700} fill={inverted ? '#ffffff' : ink}>
+    <text x={65} y={y + 32} textAnchor="middle" fontSize={24} fontWeight={700} fill={inverted ? dark : ink}>
       {tag}
     </text>
     <text x={160} y={y + 34} fontSize={34} fontWeight={800} fill={ink} letterSpacing="-0.02em">
@@ -828,7 +866,7 @@ const FlowNode = ({ n, label, hot }: { n: string; label: string; hot?: boolean }
         width: 72,
         height: 72,
         borderRadius: '50%',
-        background: hot ? 'var(--osd-accent)' : surface,
+        background: hot ? accentFill : surface,
         border: hot ? 'none' : `2px solid ${line}`,
         color: hot ? '#ffffff' : muted,
         display: 'flex',
@@ -836,7 +874,7 @@ const FlowNode = ({ n, label, hot }: { n: string; label: string; hot?: boolean }
         justifyContent: 'center',
         fontSize: 24,
         fontWeight: 800,
-        boxShadow: hot ? '0 12px 28px -10px rgba(111,0,255,0.7)' : 'none',
+        boxShadow: hot ? '0 12px 28px -10px rgba(0,0,0,0.5)' : 'none',
       }}
     >
       {n}
@@ -917,7 +955,7 @@ const Chevron = ({ label, color }: { label: string; color: string }) => (
       justifyContent: 'center',
       fontSize: 22,
       fontWeight: 700,
-      color: ink,
+      color: '#fff',
     }}
   >
     {label}
@@ -939,7 +977,7 @@ const RoleCell = ({ label, span = 1, hot, dim }: { label: string; span?: number;
         opacity: dim ? 0.5 : 1,
       }}
     >
-      <svg width={28} height={28} viewBox="0 0 28 28" fill="none" stroke={emph ? '#6f00ff' : muted} strokeWidth={2}>
+      <svg width={28} height={28} viewBox="0 0 28 28" fill="none" stroke={emph ? '#04AB6A' : muted} strokeWidth={2}>
         <circle cx={14} cy={9} r={6} />
         <path d="M3 27c1.5-7 6-10 11-10s9.5 3 11 10" />
       </svg>
@@ -949,7 +987,7 @@ const RoleCell = ({ label, span = 1, hot, dim }: { label: string; span?: number;
 };
 
 const Tag = ({ text, tone }: { text: string; tone: 'bad' | 'good' }) => (
-  <div style={{ background: tone === 'bad' ? '#fbd8dc' : '#d8f3e3', color: ink, fontSize: 22, fontWeight: 600, padding: '12px 20px', borderRadius: 10, whiteSpace: 'nowrap' }}>
+  <div style={{ background: tone === 'bad' ? 'rgba(242,120,120,0.16)' : 'rgba(4,171,106,0.2)', color: tone === 'bad' ? '#F4A9A9' : '#7FE3B6', fontSize: 22, fontWeight: 600, padding: '12px 20px', borderRadius: 10, whiteSpace: 'nowrap' }}>
     {/* @slide-comment id="c-b58ff4e3" ts="2026-09-18T13:39:14.831Z" text="eyJub3RlIjoi0YPQtNC-0LvQuCJ9" */}
     {text}
   </div>
@@ -962,7 +1000,7 @@ const SdlcPanel = ({ title, children }: { title: string; children: ReactNode }) 
   </div>
 );
 
-const CHEV = { idea: '#f3d98a', req: '#dfe08e', dev: '#bfe0a3', test: '#a9dcc4', deploy: '#a7d2d8', support: '#f2b8cf' };
+const CHEV = { idea: '#123F31', req: '#0E5039', dev: '#0B6343', test: '#0A744D', deploy: '#0A8354', support: '#139A68' };
 
 const ModelBlock = ({
   eyebrow,
@@ -1008,7 +1046,7 @@ const ModelBlock = ({
 
 const RealityRow = ({ title, text }: { title: string; text?: string }) => (
   <div style={{ display: 'flex', gap: 32, alignItems: 'flex-start', padding: '22px 0', borderBottom: `1px solid ${line}` }}>
-    <span style={{ width: 16, height: 16, borderRadius: 4, background: 'var(--osd-accent)', marginTop: 18, flexShrink: 0 }} />
+    <span style={{ width: 16, height: 16, borderRadius: 4, background: accentFill, marginTop: 18, flexShrink: 0 }} />
     <div>
       <div style={{ fontSize: 40, lineHeight: 1.3, letterSpacing: '-0.015em' }}>{title}</div>
       {text && <div style={{ fontSize: 28, lineHeight: 1.4, color: muted, marginTop: 6 }}>{text}</div>}
@@ -1021,7 +1059,7 @@ const TrendCol = ({ title, dir, items }: { title: string; dir: 'down' | 'up'; it
     <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
       <svg width={48} height={48} viewBox="0 0 48 48">
         {dir === 'up' ? (
-          <path d="M6,38 L20,22 L28,30 L42,12 M30,12 L42,12 L42,24" fill="none" stroke="#6f00ff" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M6,38 L20,22 L28,30 L42,12 M30,12 L42,12 L42,24" fill="none" stroke="#04AB6A" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" />
         ) : (
           <path d="M6,12 L20,28 L28,20 L42,38 M30,38 L42,38 L42,26" fill="none" stroke={muted} strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" />
         )}
@@ -1039,31 +1077,38 @@ const TrendCol = ({ title, dir, items }: { title: string; dir: 'down' | 'up'; it
 // СТРАНИЦЫ
 // ═══════════════════════════════════════════════════════════════════════════════
 
-// 01 — Обложка
+// 01 — Обложка (по образцу титула шаблона AI BOOST'26)
+const SpeakerPhoto = ({ size }: { size: number }) => (
+  <img
+    src={speakerImg}
+    alt="Иван Поддубный"
+    style={{ width: size, height: size, borderRadius: '50%', objectFit: 'cover', objectPosition: '50% 18%', filter: 'grayscale(1)', display: 'block' }}
+  />
+);
 const Cover: Page = () => (
-  <Live
-    style={{
-      padding: `0 ${PAD}px`,
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      backgroundImage: 'radial-gradient(1100px 800px at 92% 10%, #e6d9ff 0%, rgba(230,217,255,0) 60%)',
-    }}
-  >
-    <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 14, background: 'var(--osd-accent)' }} />
-    <div className="rs-in">
-      <Eyebrow>AAA-conf · 2026</Eyebrow>
-    </div>
-    <div className="rs-in rs-d1" style={{ marginTop: 40, maxWidth: 1500 }}>
-      <Heading size={128}>
-        3 вектора развития <A>AI&nbsp;SDLC</A>
+  <Live chrome="bare" style={{ background: dark }}>
+    <img className="rs-in" src={boostLogoBig} alt="AI BOOST'26" style={{ position: 'absolute', left: 80, top: 80, width: 692 }} />
+    <img className="rs-in" src={partnersGreen} alt="Partners' Club" style={{ position: 'absolute', right: 80, top: 126, height: 68 }} />
+    <PanelBg x={20} y={398} w={1216} h={662} green />
+    <div className="rs-in rs-d1" style={{ position: 'absolute', left: 87, top: 470, width: 1080 }}>
+      <Heading size={104}>
+        3 вектора развития
+        <br />
+        AI SDLC
       </Heading>
+      <div style={{ fontSize: 38, lineHeight: 1.4, color: 'rgba(255,255,255,0.8)', marginTop: 40 }}>Harness · Трансформация ролей · Автономность</div>
     </div>
-    <div className="rs-in rs-d2" style={{ fontSize: 40, lineHeight: 1.4, color: muted, marginTop: 40, maxWidth: 1600 }}>
-      Harness · Трансформация ролей · Автономность
+    <div className="rs-in rs-d2" style={{ position: 'absolute', left: 87, right: 1920 - 1236 + 60, bottom: 76, display: 'flex', justifyContent: 'space-between', fontSize: 34, color: 'rgba(255,255,255,0.8)' }}>
+      <span>22-23.10</span>
+      <span>Москва</span>
     </div>
-    <div className="rs-in rs-d3" style={{ marginTop: 80 }}>
-      <Speaker />
+    <PanelBg x={1256} y={398} w={644} h={662} green />
+    <div className="rs-in rs-d2" style={{ position: 'absolute', left: 1256, top: 398, width: 644, height: 662, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 36 }}>
+      <SpeakerPhoto size={380} />
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontSize: 44, fontWeight: 700, lineHeight: 1.15 }}>Иван Поддубный</div>
+        <div style={{ fontSize: 30, color: 'rgba(255,255,255,0.8)', marginTop: 10 }}>CTO Вебпрактик</div>
+      </div>
     </div>
   </Live>
 );
@@ -1101,7 +1146,7 @@ const CONF_LOGOS = [
 const ConfLogos = () => (
   <div style={{ marginTop: 18, marginLeft: 44, display: 'flex', alignItems: 'center', gap: 36 }}>
     {CONF_LOGOS.map((l) => (
-      <img key={l.alt} src={l.src} alt={l.alt} style={{ height: 44, maxWidth: 160, minWidth: 0, objectFit: 'contain', filter: 'grayscale(1)', opacity: 0.6 }} />
+      <img key={l.alt} src={l.src} alt={l.alt} style={{ height: 44, maxWidth: 160, minWidth: 0, objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.7 }} />
     ))}
   </div>
 );
@@ -1161,16 +1206,16 @@ const About: Page = () => (
 
 // 03 — Вебпрактик
 const Clients: Page = () => (
-  <Live style={{ background: '#fff' }}>
-    <img
-      src={clientsImg}
-      alt="Логотипы клиентов Вебпрактик"
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-    />
-    <div className="rs-in" style={{ position: 'absolute', top: 64, left: PAD }}>
-      <Heading size={56}>
-        Вебпрактик — <A>веб-интегратор</A> для корпораций
-      </Heading>
+  <Live chrome="frame">
+    <HeaderTitle size={56}>
+      Вебпрактик — <A>веб-интегратор</A> для корпораций
+    </HeaderTitle>
+    <div style={{ position: 'absolute', left: 20, top: BODY_TOP, width: 1880, height: 1080 - BODY_TOP - 20, borderRadius: 35, overflow: 'hidden', background: '#fff' }}>
+      <img
+        src={clientsImg}
+        alt="Логотипы клиентов Вебпрактик"
+        style={{ position: 'absolute', left: 0, top: -150, width: 1880, height: 1057, objectFit: 'cover' }}
+      />
     </div>
   </Live>
 );
@@ -1195,7 +1240,7 @@ const Milestone = ({ n, title, text }: { n: string; title: string; text: string 
           width: 56,
           height: 56,
           borderRadius: '50%',
-          background: 'var(--osd-accent)',
+          background: accentFill,
           color: '#fff',
           display: 'flex',
           alignItems: 'center',
@@ -1245,31 +1290,14 @@ const PathTo100: Page = () => (
 // ─── Глава 02: почему нужен единый процесс ───────────────────────────────────
 
 const Fabrica: Page = () => (
-  <Live style={{ background: '#0b0a12' }}>
+  <Live chrome="frame">
+    <HeaderTitle>Модель зрелости AI в SDLC</HeaderTitle>
     <img
       src={fabricaImg}
       alt="Модель зрелости AI в SDLC"
-      style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: 1000, objectFit: 'contain', objectPosition: 'center top' }}
+      style={{ position: 'absolute', left: 60, top: BODY_TOP + 20, width: 1800, height: 1080 - BODY_TOP - 140, objectFit: 'contain' }}
     />
-    <div
-      className="rs-in"
-      style={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        height: 80,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'rgba(255,255,255,0.85)',
-        fontSize: 26,
-        fontWeight: 600,
-        letterSpacing: '0.02em',
-      }}
-    >
-      Модель зрелости AI в SDLC: 5 уровней автономности
-    </div>
+    <Footer />
   </Live>
 );
 
@@ -1294,10 +1322,10 @@ const BusFactor: Page = () => (
 );
 
 const Bridge: Page = () => (
-  <Live style={{ padding: `120px ${PAD}px 0` }}>
+  <Live chrome="frame" style={{ padding: `${BODY_TOP + 54}px ${PAD}px 0` }}>
+    <HeaderTitle>Кейс стратегической сессии</HeaderTitle>
     <div style={{ display: 'flex', gap: 80, alignItems: 'flex-start' }}>
       <div className="rs-in" style={{ flex: 1, minWidth: 0 }}>
-        <Heading>Кейс стратегической сессии</Heading>
         <Lead>Попросили руководителей цехов нарисовать, как они видят выход на L3.</Lead>
         <Steps>
           <Step>
@@ -1311,7 +1339,7 @@ const Bridge: Page = () => (
         <img
           src={mostiImg}
           alt="Два пролёта моста, которые не сошлись"
-          style={{ width: 760, height: 570, objectFit: 'cover', borderRadius: 'var(--osd-radius)', boxShadow: '0 32px 64px -32px rgba(21,17,31,0.5)' }}
+          style={{ width: 760, height: 570, objectFit: 'cover', borderRadius: 35, display: 'block' }}
         />
       </div>
     </div>
@@ -1361,7 +1389,7 @@ const ManagementMistake: Page = () => (
 // Элементы схем (абсолютные координаты; morph требует детерминированной геометрии)
 type Tone = 'accent' | 'outline' | 'soft' | 'ghost' | 'dev';
 const toneStyle: Record<Tone, CSSProperties> = {
-  accent: { background: 'var(--osd-accent)', color: '#fff', border: '2px solid transparent' },
+  accent: { background: accentFill, color: '#fff', border: '2px solid transparent' },
   outline: { background: surface, color: 'var(--osd-text)', border: `2px solid ${line}` },
   soft: { background: tint, color: 'var(--osd-text)', border: '2px solid transparent' },
   ghost: { background: 'transparent', color: muted, border: `2px dashed ${accentSoft}` },
@@ -1415,8 +1443,8 @@ const Box = ({
             position: 'absolute',
             top: -18,
             right: 24,
-            background: ink,
-            color: '#fff',
+            background: '#fff',
+            color: dark,
             fontSize: 18,
             fontWeight: 700,
             letterSpacing: '0.1em',
@@ -1483,15 +1511,13 @@ const DiagramCaption = ({ y, children }: { y: number; children: ReactNode }) => 
   </div>
 );
 const DiagramPage = ({ title, eyebrow, children }: { title: ReactNode; eyebrow?: ReactNode; children: ReactNode }) => (
-  <Live>
-    <div style={{ position: 'absolute', left: PAD, top: 100, right: PAD }}>
-      <Heading size={64}>{title}</Heading>
-      {eyebrow && (
-        <div style={{ marginTop: 20 }}>
-          <Eyebrow style={{ fontSize: 28 }}>{eyebrow}</Eyebrow>
-        </div>
-      )}
-    </div>
+  <Live chrome="frame">
+    <HeaderTitle>{title}</HeaderTitle>
+    {eyebrow && (
+      <div style={{ position: 'absolute', left: PAD, top: BODY_TOP + 50 }}>
+        <Eyebrow style={{ fontSize: 26 }}>{eyebrow}</Eyebrow>
+      </div>
+    )}
     {children}
     <Footer />
   </Live>
@@ -1632,7 +1658,7 @@ const Layer = ({ title, width, base }: { title: string; width: number; base?: bo
       height: base ? 104 : 78,
       boxSizing: 'border-box',
       borderRadius: base ? 'var(--osd-radius)' : 14,
-      background: base ? 'var(--osd-accent)' : surface,
+      background: base ? accentFill : surface,
       color: base ? '#fff' : 'var(--osd-text)',
       border: `2px solid ${base ? 'transparent' : line}`,
       display: 'flex',
@@ -1642,7 +1668,7 @@ const Layer = ({ title, width, base }: { title: string; width: number; base?: bo
       fontSize: base ? 36 : 30,
       fontWeight: 700,
       letterSpacing: '-0.02em',
-      boxShadow: base ? '0 24px 48px -24px rgba(111,0,255,0.55)' : 'none',
+      boxShadow: base ? '0 24px 48px -24px rgba(0,0,0,0.5)' : 'none',
     }}
   >
     {title}
@@ -1712,8 +1738,8 @@ const Skills: Page = () => (
 
 // AI-шлюз: что закрывает своё решение
 const GatewayOwn: Page = () => (
-  <Frame title="Свой шлюз: что он нам закрывает" lead="Полноценный корпоративный шлюз на open source компонентах." gap={48}>
-    <div className="rs-steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
+  <Frame title="Свой шлюз: что он нам закрывает" lead="Полноценный корпоративный шлюз на open source компонентах." gap={40}>
+    <div className="rs-steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
       <Steps>
         <Step>
           <Card label="вход" title="SSO" text="Корпоративная учётка вместо ручной раздачи виртуальных ключей каждому" accent />
@@ -1773,7 +1799,7 @@ const HandoffsExpensive: Page = () => (
       <div className="rs-in">
         <Eyebrow>Хендофы дороги</Eyebrow>
         <div style={{ marginTop: 20 }}>
-          <Heading size={72}>Работа стала короче хендофа</Heading>
+          <Heading size={60}>Работа стала короче хендофа</Heading>
         </div>
       </div>
       <div style={{ marginTop: 16 }}>
@@ -1805,7 +1831,7 @@ const HandoffsContext: Page = () => (
       <div className="rs-in">
         <Eyebrow>Хендофы дороги</Eyebrow>
         <div style={{ marginTop: 20 }}>
-          <Heading size={72}>Погружение в задачу плохо сжимается</Heading>
+          <Heading size={60}>Погружение в задачу плохо сжимается</Heading>
         </div>
       </div>
       <Step>
@@ -1842,7 +1868,7 @@ const HandoffsSdlc: Page = () => (
       <div className="rs-in">
         <Eyebrow>Хендофы дороги</Eyebrow>
         <div style={{ marginTop: 20 }}>
-          <Heading size={72}>Шесть хендофов против одного</Heading>
+          <Heading size={60}>Шесть хендофов против одного</Heading>
         </div>
       </div>
       <div style={{ marginTop: 16 }}>
@@ -1864,7 +1890,7 @@ const SdlcShift: Page = () => (
     <div className="rs-in">
       <Eyebrow>Как меняется SDLC</Eyebrow>
       <div style={{ marginTop: 20 }}>
-        <Heading size={72}>Role-based SDLC → Agent-based SDLC</Heading>
+        <Heading size={60}>Role-based SDLC → Agent-based SDLC</Heading>
       </div>
       <p style={{ fontSize: 30, lineHeight: 1.4, color: muted, margin: '20px 0 0', maxWidth: 1400 }}>
         В SE 2.0 человек меньше пишет строки и больше управляет намерением, контекстом и проверкой.
@@ -2009,7 +2035,7 @@ const Damki2: Page = () => (
       <div className="rs-in">
         <Eyebrow>Универсальный инженер</Eyebrow>
         <div style={{ marginTop: 20 }}>
-          <Heading size={72}>Раз и в дамки? Нет, по плану</Heading>
+          <Heading size={60}>Раз и в дамки? Нет, по плану</Heading>
         </div>
       </div>
       <div style={{ marginTop: 28 }}>
@@ -2042,7 +2068,7 @@ const NeedToChange: Page = () => (
       <div className="rs-in">
         <Eyebrow style={{ fontSize: '29px' }}>Всем ли нужно меняться?</Eyebrow>
         <div style={{ marginTop: 24 }}>
-          <Heading size={72}>Моя картина мира на весну 2027</Heading>
+          <Heading size={60}>Моя картина мира на весну 2027</Heading>
         </div>
       </div>
       <div className="rs-stagger rs-slow" style={{ display: 'flex', gap: 40, marginTop: 56 }}>
@@ -2063,10 +2089,7 @@ const NeedToChange: Page = () => (
 // Мясной прокси
 const MeatProxy: Page = () => (
   <Live style={{ padding: `${PAD}px ${PAD}px 0` }}>
-    <div className="rs-in">
-      <Eyebrow>{''}</Eyebrow>
-    </div>
-    <div style={{ display: 'flex', gap: 80, alignItems: 'center', marginTop: 24 }}>
+    <div style={{ display: 'flex', gap: 80, alignItems: 'center', marginTop: 60 }}>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div className="rs-in rs-d1" style={{ fontFamily: 'var(--osd-font-display)', fontSize: 112, fontWeight: 800, lineHeight: 1.02, letterSpacing: '-0.04em' }}>
           Мясной
@@ -2095,8 +2118,8 @@ const MeatProxy: Page = () => (
 
 // Реакция на мясной прокси (бывшая гифка, перекодирована в mp4)
 const MeatProxyGif: Page = () => (
-  <Live style={{ background: ink, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    <video src={meatProxyVideo} autoPlay loop muted playsInline style={{ height: 960, width: 'auto', borderRadius: 'var(--osd-radius)' }} />
+  <Live chrome="bare" style={{ background: dark, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <video src={meatProxyVideo} autoPlay loop muted playsInline style={{ height: 1000, width: 'auto', borderRadius: 'var(--osd-radius)' }} />
   </Live>
 );
 
@@ -2107,7 +2130,7 @@ const BottleneckFlow: Page = () => (
       <div className="rs-in">
         <Eyebrow>Главный тезис</Eyebrow>
         <div style={{ marginTop: 20 }}>
-          <Heading size={72}>Узкое место переезжает</Heading>
+          <Heading size={60}>Узкое место переезжает</Heading>
         </div>
         <p style={{ fontSize: 30, lineHeight: 1.4, color: muted, margin: '20px 0 0' }}>Локальное ускорение кода создаёт очередь дальше по потоку.</p>
       </div>
@@ -2234,7 +2257,7 @@ const NeedChip = ({ need }: { need: Need }) => {
         lineHeight: 1,
         padding: '8px 14px',
         borderRadius: 999,
-        background: need === 'base' ? 'var(--osd-accent)' : strong ? tint : 'transparent',
+        background: need === 'base' ? accentFill : strong ? tint : 'transparent',
         color: need === 'base' ? '#fff' : strong ? 'var(--osd-accent)' : muted,
         border: strong ? '1px solid transparent' : `1px solid ${line}`,
         opacity: need === 'none' ? 0.5 : 1,
@@ -2251,7 +2274,7 @@ const PracticeRow = ({ name, l2, l3 }: { name: string; l2: Need; l3: Need }) => 
       gridTemplateColumns: '760px 1fr 1fr',
       alignItems: 'center',
       gap: 24,
-      padding: '5px 28px',
+      padding: '3px 28px',
       borderBottom: `1px solid ${line}`,
       fontSize: 25,
       background: surface,
@@ -2346,34 +2369,39 @@ const TgIcon = () => (
   </svg>
 );
 const Questions: Page = () => (
-  <Live
-    style={{
-      padding: `0 ${PAD}px`,
-      backgroundImage: 'radial-gradient(1100px 800px at 8% 90%, #e6d9ff 0%, rgba(230,217,255,0) 60%)',
-    }}
-  >
-    <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 14, background: 'var(--osd-accent)' }} />
-    <div className="rs-in" style={{ position: 'absolute', left: PAD, top: 200 }}>
-      <Heading size={150}>Вопросы?</Heading>
+  <Live chrome="bare" style={{ background: dark }}>
+    <PanelBg x={20} y={20} w={982} h={1040} green />
+    <img className="rs-in" src={boostLogo} alt="AI BOOST" style={{ position: 'absolute', left: 80, top: 60, height: 92 }} />
+    <img className="rs-in" src={partnersWhite} alt="Partners' Club" style={{ position: 'absolute', right: 1920 - 1002 + 60, top: 72, height: 68 }} />
+    <div className="rs-in rs-d1" style={{ position: 'absolute', left: 20, width: 982, top: 210, display: 'flex', justifyContent: 'center' }}>
+      <SpeakerPhoto size={560} />
     </div>
-    <div className="rs-in rs-d1" style={{ position: 'absolute', left: PAD, bottom: 120, display: 'flex', alignItems: 'center', gap: 28 }}>
-      <img
-        src={speakerImg}
-        alt="Иван Поддубный"
-        style={{ width: 140, height: 140, borderRadius: '50%', objectFit: 'cover', objectPosition: '50% 18%', border: `4px solid ${accentSoft}`, flex: 'none' }}
-      />
-      <div>
-        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 40, fontWeight: 700, lineHeight: 1.2 }}>Иван Поддубный</div>
-        <div style={{ fontSize: 28, color: muted, marginTop: 6 }}>CTO Вебпрактик</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 10, fontSize: 28, fontWeight: 600, color: 'var(--osd-accent)' }}>
-          <TgIcon />
-          @northleshiy
-        </div>
+    <div className="rs-in rs-d1" style={{ position: 'absolute', left: 80, right: 1920 - 1002 + 60, bottom: 70, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+      <div style={{ fontSize: 56, lineHeight: 1.05 }}>
+        Иван
+        <br />
+        Поддубный
+      </div>
+      <div style={{ textAlign: 'right' }}>
+        <div style={{ fontSize: 40 }}>Вебпрактик</div>
+        <div style={{ fontSize: 26, color: 'rgba(255,255,255,0.8)', marginTop: 6 }}>CTO</div>
       </div>
     </div>
-    <div className="rs-in rs-d2 rs-pop" style={{ position: 'absolute', right: PAD, bottom: 120, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
-      <img src={qrChannelImg} alt="QR: канал @techlead_stream" style={{ height: 720, width: 'auto', objectFit: 'contain', borderRadius: 24 }} />
-      <div style={{ fontSize: 24, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: muted }}>мой канал в Telegram</div>
+    <div className="rs-in" style={{ position: 'absolute', left: 1086, top: 80 }}>
+      <Heading size={110}>Вопросы?</Heading>
+      <div style={{ fontSize: 24, color: muted, textTransform: 'uppercase', marginTop: 20 }}>{TOPIC}</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 28, fontSize: 32, color: 'var(--osd-accent)', fontWeight: 700 }}>
+        <TgIcon />
+        @northleshiy
+      </div>
+    </div>
+    <div className="rs-in rs-d2 rs-pop" style={{ position: 'absolute', left: 1086, top: 400, display: 'flex', alignItems: 'flex-end', gap: 32 }}>
+      <img src={qrChannelImg} alt="QR: канал @techlead_stream" style={{ height: 470, width: 'auto', objectFit: 'contain', borderRadius: 24 }} />
+      <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: muted, maxWidth: 260, lineHeight: 1.4 }}>мой канал в Telegram</div>
+    </div>
+    <div style={{ position: 'absolute', left: 1086, right: 80, bottom: 70, display: 'flex', justifyContent: 'space-between', fontSize: 40, color: '#CDCFCE' }}>
+      <span>22-23.10</span>
+      <span>Москва</span>
     </div>
   </Live>
 );
@@ -2469,7 +2497,7 @@ const NoSilverBullet: Page = () => (
 // Наша история: старт 2026 по трём векторам
 type Stance = 'focus' | 'think' | 'wait';
 const stanceChip: Record<Stance, CSSProperties> = {
-  focus: { background: 'var(--osd-accent)', color: '#fff', border: '1px solid transparent' },
+  focus: { background: accentFill, color: '#fff', border: '1px solid transparent' },
   think: { background: tint, color: 'var(--osd-accent)', border: '1px solid transparent' },
   wait: { background: 'transparent', color: muted, border: `1px solid ${line}` },
 };
@@ -2588,7 +2616,7 @@ const LayerCard = ({ eyebrow, title, items, focus, note }: { eyebrow: string; ti
       border: focus ? '3px solid var(--osd-accent)' : `2px dashed ${accentSoft}`,
       borderRadius: 'var(--osd-radius)',
       padding: '32px 40px',
-      boxShadow: focus ? '0 28px 56px -28px rgba(111,0,255,0.5)' : 'none',
+      boxShadow: focus ? '0 28px 56px -28px rgba(0,0,0,0.5)' : 'none',
       color: focus ? 'var(--osd-text)' : muted,
       display: 'flex',
       flexDirection: 'column',
@@ -2600,8 +2628,8 @@ const LayerCard = ({ eyebrow, title, items, focus, note }: { eyebrow: string; ti
           position: 'absolute',
           top: -20,
           right: 28,
-          background: ink,
-          color: '#fff',
+          background: '#fff',
+          color: dark,
           fontSize: 20,
           fontWeight: 700,
           letterSpacing: '0.1em',
@@ -2736,8 +2764,9 @@ const Code = ({ children, size = 27 }: { children: string; size?: number }) => (
   <pre
     style={{
       margin: 0,
-      background: ink,
-      color: '#e9e4f5',
+      background: '#020A08',
+      border: `1px solid ${line}`,
+      color: '#D4EFE2',
       fontFamily: mono,
       fontSize: size,
       lineHeight: 1.5,
@@ -2771,8 +2800,8 @@ const MetaRepo: Page = () => (
 );
 
 const HarnessDirections: Page = () => (
-  <Frame title="Куда мы развивали harness" lead="Не один инструмент, а набор направлений вокруг агента." gap={48}>
-    <div className="rs-steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
+  <Frame title="Куда мы развивали harness" lead="Не один инструмент, а набор направлений вокруг агента." gap={40}>
+    <div className="rs-steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
       <Steps>
         <Step>
           <Card label="фундамент" title="Сквозной SDD" text="Спеки в репозитории: единый источник истины для людей и агентов" accent />
@@ -2836,7 +2865,7 @@ const RolesH1: Page = () => (
           style={{
             height: 110,
             borderRadius: 'var(--osd-radius)',
-            background: 'var(--osd-accent)',
+            background: accentFill,
             color: '#fff',
             display: 'flex',
             alignItems: 'center',
@@ -2844,7 +2873,7 @@ const RolesH1: Page = () => (
             fontFamily: 'var(--osd-font-display)',
             fontSize: 38,
             fontWeight: 700,
-            boxShadow: '0 24px 48px -24px rgba(111,0,255,0.55)',
+            boxShadow: '0 24px 48px -24px rgba(4,171,106,0.55)',
           }}
         >
           Общий контекст: спеки и harness
@@ -2944,7 +2973,7 @@ const HopRole = ({ label, hot, ghost, h = 120, size = 32 }: { label: string; hot
       fontFamily: 'var(--osd-font-display)',
       fontSize: size,
       fontWeight: 700,
-      background: hot ? 'var(--osd-accent)' : ghost ? 'transparent' : surface,
+      background: hot ? accentFill : ghost ? 'transparent' : surface,
       color: hot ? '#fff' : ghost ? muted : 'var(--osd-text)',
       border: `2px ${ghost ? 'dashed' : 'solid'} ${hot ? 'transparent' : ghost ? muted : line}`,
     }}
@@ -3054,11 +3083,11 @@ const AgentizedDiagram = () => {
           <path d="M0 0L10 5L0 10z" fill={accentSoft} />
         </marker>
         <marker id="ag-arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0 0L10 5L0 10z" style={{ fill: 'var(--osd-accent)' }} />
+          <path d="M0 0L10 5L0 10z" fill={accentFill} />
         </marker>
       </defs>
       {/* Модель */}
-      <rect x={0} y={0} width={W} height={modelH} rx={24} style={{ fill: 'var(--osd-accent)' }} />
+      <rect x={0} y={0} width={W} height={modelH} rx={24} fill={accentFill} />
       <text x={W / 2} y={modelH / 2 + 4} textAnchor="middle" dominantBaseline="middle" fill="#fff" style={{ fontFamily: 'var(--osd-font-display)', fontSize: 38, fontWeight: 800 }}>
         LLM · большая часть работы
       </text>
@@ -3086,7 +3115,7 @@ const AgentizedDiagram = () => {
               return (
                 <g key={step}>
                   <rect x={x + 20} y={y} width={cardW - 40} height={rowH - 12} rx={14} fill={tint} />
-                  <circle cx={x + 56} cy={y + (rowH - 12) / 2} r={18} style={{ fill: 'var(--osd-accent)' }} />
+                  <circle cx={x + 56} cy={y + (rowH - 12) / 2} r={18} fill={accentFill} />
                   <text x={x + 56} y={y + (rowH - 12) / 2 + 1} textAnchor="middle" dominantBaseline="middle" fill="#fff" style={{ fontSize: 20, fontWeight: 800 }}>
                     {j + 1}
                   </text>
@@ -3188,8 +3217,8 @@ const AutonomyPlatform: Page = () => (
 );
 
 const NoTurnkey: Page = () => (
-  <Frame title="Готовых платформ под ключ нет" lead="Решения закрывают отдельные куски. Собирать целое придётся самим." gap={56}>
-    <div className="rs-steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
+  <Frame title="Готовых платформ под ключ нет" lead="Решения закрывают отдельные куски. Собирать целое придётся самим." gap={40}>
+    <div className="rs-steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
       <Steps>
         <Step>
           <Card label="среда" title="Эфемерные окружения" text="Sandbox есть, а поднять под задачу окружение под ваш стек — нет" accent />
@@ -3220,7 +3249,7 @@ const LoopNode = ({ label, hot }: { label: string; hot?: boolean }) => (
     style={{
       padding: '22px 30px',
       borderRadius: 'var(--osd-radius)',
-      background: hot ? 'var(--osd-accent)' : surface,
+      background: hot ? accentFill : surface,
       color: hot ? '#fff' : 'var(--osd-text)',
       border: `2px solid ${hot ? 'transparent' : line}`,
       fontFamily: 'var(--osd-font-display)',
@@ -3285,10 +3314,12 @@ const MarketNow: Page = () => (
 
 // Заголовок финала
 const ConclusionsTitle: Page = () => (
-  <Live style={{ background: tint, padding: `0 ${PAD}px`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-    <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 14, background: 'var(--osd-accent)' }} />
+  <Live chrome="bare" style={{ padding: `0 ${PAD}px`, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+    <PanelBg x={20} y={20} w={1880} h={1040} green />
+    <img className="rs-static" src={boostLogo} alt="AI BOOST" style={{ position: 'absolute', left: 80, top: 60, height: 92 }} />
+    <img className="rs-static" src={partnersWhite} alt="Partners' Club" style={{ position: 'absolute', right: 80, top: 72, height: 68 }} />
     <div className="rs-in">
-      <Heading size={160}>Выводы</Heading>
+      <Heading size={180}>Выводы</Heading>
     </div>
   </Live>
 );
@@ -3322,7 +3353,7 @@ const LookBack: Page = () => (
       <Eyebrow style={{ fontSize: 30 }}>Если бы вернуться на полгода назад</Eyebrow>
     </div>
     <div className="rs-in rs-d1" style={{ marginTop: 36, borderLeft: '10px solid var(--osd-accent)', paddingLeft: 56 }}>
-      <Heading size={76}>
+      <Heading size={76} caps={false}>
         С текущими знаниями я бы сразу запустил <A>трансформацию ролей и переобучение</A>. Параллельно с harness
       </Heading>
     </div>
