@@ -836,6 +836,28 @@ const Clients: Page = () => (
   </Live>
 );
 
+// О чём поговорим: четыре раздела доклада
+const AgendaRow = ({ n, title, sub }: { n: string; title: ReactNode; sub: ReactNode }) => (
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: 48, borderTop: `2px solid ${line}`, padding: '28px 0' }}>
+    <div style={{ flex: 'none', width: 110, fontFamily: 'var(--osd-font-display)', fontSize: 64, fontWeight: 800, lineHeight: 1, color: 'var(--osd-accent)' }}>{n}</div>
+    <div>
+      <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 44, fontWeight: 700, lineHeight: 1.15, letterSpacing: '-0.02em' }}>{title}</div>
+      <div style={{ fontSize: 28, lineHeight: 1.4, color: muted, marginTop: 8 }}>{sub}</div>
+    </div>
+  </div>
+);
+
+const Agenda: Page = () => (
+  <Frame title="О чём поговорим" gap={0}>
+    <div className="rs-stagger">
+      <AgendaRow n="01" title="SDD — единый контекст для команды и агента" sub="Один процесс и один источник истины через все роли" />
+      <AgendaRow n="02" title="Платформа на легаси" sub="Мультирепо, трассировка и регламент, на которых едет процесс" />
+      <AgendaRow n="03" title="Что докрутили на масштабе" sub="Июнь → октябрь: что вылезло, когда SDD пошёл во все команды" />
+      <AgendaRow n="04" title="Упёрлись в роли" sub="SDD прошёл через все роли — и упёрся в сами роли" />
+    </div>
+  </Frame>
+);
+
 // Что такое SDD: спека — контейнер из трёх блоков, агент делает из неё код.
 const SpecBlock = ({ children }: { children: ReactNode }) => (
   <div style={{ background: surface, border: `2px solid ${line}`, borderRadius: 16, padding: '0 32px', height: 96, display: 'flex', alignItems: 'center', fontSize: 38, fontWeight: 600 }}>
@@ -2807,6 +2829,7 @@ export default [
   Cover,
   About,
   Clients,
+  Agenda,
   WhatIsSdd,
   AudiencePoll,
   Adoption100,
